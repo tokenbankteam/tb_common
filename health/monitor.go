@@ -15,7 +15,7 @@ func InitMonitor(binds []string) {
 	monitorServeMux := http.NewServeMux()
 	monitorServeMux.HandleFunc("/v1/ping", m.Ping)
 	for _, addr := range binds {
-		log.Info("start monitor listen: \"%s\"", addr)
+		log.Infof("start monitor listen: %v", addr)
 		go func(bind string) {
 			if err := http.ListenAndServe(bind, monitorServeMux); err != nil {
 				log.Errorf("http.ListenAndServe(\"%s\", monitorServeMux) error(%v)", addr, err)
