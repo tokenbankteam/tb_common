@@ -93,15 +93,17 @@ func LoggerWithWriter(out io.Writer, notlogged ...string) gin.HandlerFunc {
 			}
 			comment := c.Errors.ByType(gin.ErrorTypePrivate).String()
 
-			log.Infof("[GIN] %v |%s %3d %s| %13v | %15s |%s  %s %-7s %s\n%s",
-				end.Format("2006/01/02 - 15:04:05"),
-				statusColor, statusCode, reset,
-				latency,
-				clientIP,
-				methodColor, method, reset,
-				path,
-				comment,
-			)
+			if latency > time.Millisecond*200 {
+				log.Infof("[GIN] %v |%s %3d %s| %13v | %15s |%s  %s %-7s %s\n%s",
+					end.Format("2006/01/02 - 15:04:05"),
+					statusColor, statusCode, reset,
+					latency,
+					clientIP,
+					methodColor, method, reset,
+					path,
+					comment,
+				)
+			}
 		}
 	}
 }
