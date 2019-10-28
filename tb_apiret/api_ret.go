@@ -8,6 +8,7 @@ const ResultOK int = 0
 const ResultParamFailed = 1
 const ResultServiceFailed = 2
 const ResultServerWarn = 3
+const ResultTokenFailed = 4
 
 // CJsonOk the http api handle ok
 func CJsonOk(c *gin.Context, message string) {
@@ -54,6 +55,27 @@ func CJsonServerWarnData(c *gin.Context, message string, data interface{}) {
 		"result":  ResultServerWarn,
 		"message": message,
 		"data":    data,
+	})
+}
+
+func CJsonTokenFailed(c *gin.Context, message string) {
+	c.JSON(StatusCodeOk, gin.H{
+		"result":  ResultTokenFailed,
+		"message": message,
+	})
+}
+
+func CJsonTokenExpire(c *gin.Context) {
+	c.JSON(StatusCodeOk, gin.H{
+		"result":  ResultTokenFailed,
+		"message": "token is expire time",
+	})
+}
+
+func CJsonTokenUserIsLogined(c *gin.Context) {
+	c.JSON(StatusCodeOk, gin.H{
+		"result":  ResultTokenFailed,
+		"message": "user is logined, please relogin",
 	})
 }
 
