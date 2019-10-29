@@ -75,7 +75,7 @@ func CJsonTokenExpire(c *gin.Context) {
 func CJsonTokenUserIsLogined(c *gin.Context) {
 	c.JSON(StatusCodeOk, gin.H{
 		"result":  ResultTokenFailed,
-		"message": "user is logined, please relogin",
+		"message": "user is logining in other place",
 	})
 }
 
