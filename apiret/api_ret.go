@@ -1,4 +1,4 @@
-package tb_apiret
+package apiret
 
 import "github.com/gin-gonic/gin"
 

@@ -1,4 +1,4 @@
-package tb_time
+package time
 
 import (
 	"time"
