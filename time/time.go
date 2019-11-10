@@ -4,10 +4,10 @@ import (
 	"time"
 )
 
-const TimeStyles string = "2006-01-02 15:04:05"
-const ZEROTimeStr = "0000-00-00 00:00:00"
-const NULLTimeStr = "0001-01-01 00:00:00"
-const DBDefaultTimeStr string = "2006-01-02 15:04:05"
+const TIME_STYLE_STR string = "2006-01-02 15:04:05"
+const ZERO_TIME_STR string = "0000-00-00 00:00:00"
+const NULL_TIME_STR string = "0001-01-01 00:00:00"
+const DB_DEFAULT_TIME_STR string = "2006-01-02 15:04:05"
 
 // TimeNowCST return now beijing time
 func TimeNowCST() (time.Time, error) {
@@ -28,8 +28,8 @@ func TransToCST(cstStr string) (time.Time, error) {
 		return ZEROTime(), nil
 	}
 	t := time.Time{}
-	local := time.UTC
-	tmp, err := time.ParseInLocation(TimeStyles, cstStr, local)
+	local, _ := time.LoadLocation("Asia/Chongqing")
+	tmp, err := time.ParseInLocation(TIME_STYLE_STR, cstStr, local)
 	if err != nil {
 		return t, err
 	}
@@ -40,33 +40,31 @@ func TransToCST(cstStr string) (time.Time, error) {
 // CSTTransToA trans to CST to string
 // cst is a beijing time
 func CSTTransToA(cst time.Time) string {
-	return cst.Format(TimeStyles)
+	return cst.Format(TIME_STYLE_STR)
 }
 
 func ZEROTime() time.Time {
-	z, _ := TransToCST(ZEROTimeStr)
+	z, _ := TransToCST(ZERO_TIME_STR)
 	return z
 }
 
 func IsNULLTime(t time.Time) bool {
-	if t.Format(TimeStyles) == NULLTimeStr {
+	if t.Format(TIME_STYLE_STR) == NULL_TIME_STR {
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
 func NewDBDefaultTime() time.Time {
-	z, _ := TransToCST(TimeStyles)
+	z, _ := TransToCST(TIME_STYLE_STR)
 	return z
 }
 
 func IsDBDefaultTime(t time.Time) bool {
-	if t.Format(TimeStyles) == TimeStyles {
+	if t.Format(TIME_STYLE_STR) == TIME_STYLE_STR {
 		return true
-	} else {
-		return false
 	}
+	return false
 }
 
 func DBDefaultTimeTransZEROTime(t time.Time) time.Time {
@@ -79,7 +77,6 @@ func DBDefaultTimeTransZEROTime(t time.Time) time.Time {
 func ZEROTimeTransDBDefaultTime(t time.Time) time.Time {
 	if IsNULLTime(t) {
 		return NewDBDefaultTime()
-	} else {
-		return t
 	}
+	return t
 }
