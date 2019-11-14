@@ -9,6 +9,7 @@ const ResultParamFailed = 1
 const ResultServiceFailed = 2
 const ResultServerWarn = 3
 const ResultTokenFailed = 4
+const ResultTokenExpireTime = 10000
 
 // CJsonOk the http api handle ok
 func CJsonOk(c *gin.Context, message string) {
@@ -67,7 +68,7 @@ func CJsonTokenFailed(c *gin.Context, message string) {
 
 func CJsonTokenExpire(c *gin.Context) {
 	c.JSON(StatusCodeOk, gin.H{
-		"result":  ResultTokenFailed,
+		"result":  ResultTokenExpireTime,
 		"message": "token is expire time",
 	})
 }
