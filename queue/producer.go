@@ -17,6 +17,11 @@ type Topic struct {
 	cache *cache.Cache
 }
 
+// GetTopicName return topic
+func (t *Topic) GetTopicName() string {
+	return t.topic
+}
+
 // RegisterTopic register a topic
 func RegisterTopic(sTopic string, config *cache.RedisConfig, dbName string) (*Topic, error) {
 	sInTopic := CreateTopic(sTopic)
