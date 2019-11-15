@@ -1,10 +1,10 @@
 package queue
 
-import "github.com/tokenbankteam/tb_common/cache"
+import (
+	"errors"
 
-import "errors"
-
-import "fmt"
+	"github.com/tokenbankteam/tb_common/cache"
+)
 
 // SendMsg send a msg
 type SendMsg interface {
@@ -66,7 +66,6 @@ func (s *SetProducer) SendMsg(content string) error {
 		s.cache.SRem(s.bodyKey, content)
 		return errors.New("send msg failed")
 	}
-	fmt.Println("send succeed.", s.topic, s.bodyKey, content)
 	return nil
 }
 
