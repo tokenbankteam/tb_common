@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-const TIME_STYLE_STR string = "2006-01-02 15:04:05"
+const TIME_STYLE_STR string = "2006-01-02T15:04:05Z"
 const ZERO_TIME_STR string = "0000-00-00 00:00:00"
 const NULL_TIME_STR string = "0001-01-01 00:00:00"
 const DB_DEFAULT_TIME_STR string = "2006-01-02 15:04:05"
