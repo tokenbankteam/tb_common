@@ -37,6 +37,23 @@ func TransToCST(cstStr string) (time.Time, error) {
 	return t, nil
 }
 
+// TransToUTC trans to beijing time
+// cstStr is beijing time string like: 2017-06-20 18:16:15
+func TransToUTC(utcStr string) (time.Time, error) {
+	if utcStr == "" {
+		return ZEROTime(), nil
+	}
+	t := time.Time{}
+	local, _ := time.LoadLocation("Asia/Chongqing")
+	local := time.UTC
+	tmp, err := time.ParseInLocation(TIME_STYLE_STR, cstStr, local)
+	if err != nil {
+		return t, err
+	}
+	t = tmp
+	return t, nil
+}
+
 // CSTTransToA trans to CST to string
 // cst is a beijing time
 func CSTTransToA(cst time.Time) string {
