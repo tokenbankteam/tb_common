@@ -44,7 +44,6 @@ func TransToUTC(utcStr string) (time.Time, error) {
 		return ZEROTime(), nil
 	}
 	t := time.Time{}
-	local, _ := time.LoadLocation("Asia/Chongqing")
 	local := time.UTC
 	tmp, err := time.ParseInLocation(TIME_STYLE_STR, utcStr, local)
 	if err != nil {
