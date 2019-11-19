@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-const TIME_STYLE_STR string = "2006-01-02 15:04:05"
+const TIME_STYLE_STR string = "2006-01-02T15:04:05Z"
 const ZERO_TIME_STR string = "0000-00-00 00:00:00"
 const NULL_TIME_STR string = "0001-01-01 00:00:00"
 const DB_DEFAULT_TIME_STR string = "2006-01-02 15:04:05"
@@ -30,6 +30,22 @@ func TransToCST(cstStr string) (time.Time, error) {
 	t := time.Time{}
 	local, _ := time.LoadLocation("Asia/Chongqing")
 	tmp, err := time.ParseInLocation(TIME_STYLE_STR, cstStr, local)
+	if err != nil {
+		return t, err
+	}
+	t = tmp
+	return t, nil
+}
+
+// TransToUTC trans to beijing time
+// cstStr is beijing time string like: 2017-06-20 18:16:15
+func TransToUTC(utcStr string) (time.Time, error) {
+	if utcStr == "" {
+		return ZEROTime(), nil
+	}
+	t := time.Time{}
+	local := time.UTC
+	tmp, err := time.ParseInLocation(TIME_STYLE_STR, utcStr, local)
 	if err != nil {
 		return t, err
 	}
