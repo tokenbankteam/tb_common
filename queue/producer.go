@@ -55,7 +55,7 @@ func (s *SetProducer) SendMsg(content string) error {
 		return err
 	}
 	if effect == EFFECT_ZERO {
-		return errors.New("send msg failed, sadd body failed")
+		return errors.New("send msg failed, sadd body:" + s.bodyKey + " failed")
 	}
 	effect, err = s.cache.LPush(s.topic, WRITE_ONE).Result()
 	if err != nil {
@@ -64,7 +64,7 @@ func (s *SetProducer) SendMsg(content string) error {
 	}
 	if effect == EFFECT_ZERO {
 		s.cache.SRem(s.bodyKey, content)
-		return errors.New("send msg failed, lphsh failed")
+		return errors.New("send msg failed, lphsh:" + s.topic + " failed")
 	}
 	return nil
 }
