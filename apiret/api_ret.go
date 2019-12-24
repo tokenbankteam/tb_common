@@ -83,8 +83,8 @@ func CJsonTokenUserIsLogined(c *gin.Context) {
 
 func CJsonTokenUserLoginedDevice(c *gin.Context) {
 	c.Json(StatusCodeOk, gin.H{
-		"result": ResultLoginDeviceID,
-		"message": "user is logining other device"
+		"result":  ResultLoginDeviceID,
+		"message": "user is logining other device",
 	})
 }
 
