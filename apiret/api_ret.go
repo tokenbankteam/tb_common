@@ -10,6 +10,7 @@ const ResultServiceFailed = 2
 const ResultServerWarn = 3
 const ResultTokenFailed = 4
 const ResultTokenExpireTime = 10000
+const ResultLoginDeviceID = 10001
 
 // CJsonOk the http api handle ok
 func CJsonOk(c *gin.Context, message string) {
@@ -77,6 +78,13 @@ func CJsonTokenUserIsLogined(c *gin.Context) {
 	c.JSON(StatusCodeOk, gin.H{
 		"result":  ResultTokenFailed,
 		"message": "user is logining in other place",
+	})
+}
+
+func CJsonTokenUserLoginedDevice(c *gin.Context) {
+	c.Json(StatusCodeOk, gin.H{
+		"result": ResultLoginDeviceID,
+		"message": "user is logining other device"
 	})
 }
 
