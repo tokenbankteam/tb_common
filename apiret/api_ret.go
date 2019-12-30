@@ -10,7 +10,7 @@ const ResultServiceFailed = 2
 const ResultServerWarn = 3
 const ResultTokenFailed = 4
 const ResultTokenExpireTime = 10000
-const ResultLoginDeviceID = 10001
+const ResultLoginDeviceID = 9999
 
 // CJsonOk the http api handle ok
 func CJsonOk(c *gin.Context, message string) {
