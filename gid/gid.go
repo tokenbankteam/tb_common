@@ -1,14 +1,14 @@
 package gid
 
 import (
+	"encoding/json"
+	"errors"
+	log "github.com/cihub/seelog"
 	"io/ioutil"
 	"net/http"
-	"encoding/json"
-	log "github.com/cihub/seelog"
 	"strconv"
 	"strings"
 	"time"
-	"errors"
 )
 
 var client = &http.Client{}
@@ -29,7 +29,7 @@ type Result struct {
 	Timestamp int64 `json:"time"`
 }
 
-func NewServer(urlPrefix string) (*Server) {
+func NewServer(urlPrefix string) *Server {
 	if urlPrefix == "" {
 		urlPrefix = "http://sonyflake.live.xunlei.com/"
 	}
@@ -53,11 +53,14 @@ func (s *Server) Get() (*Result, error) {
 		return nil, err
 	}
 	resp, err := client.Do(req)
-	if resp.Body != nil {
-		defer resp.Body.Close()
-	}
 	if err != nil {
 		return nil, err
+	}
+	if resp == nil {
+		return nil, errors.New("resp is nil")
+	}
+	if resp.Body != nil {
+		defer resp.Body.Close()
 	}
 	if status := resp.StatusCode; status < 200 || status >= 300 {
 		log.Warnf("status code is not 200")
