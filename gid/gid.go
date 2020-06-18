@@ -38,18 +38,29 @@ func NewServer(urlPrefix string) *Server {
 	}
 	return S
 }
+
 func (s *Server) GetId() (int64, error) {
-	result, err := s.Get()
-	if err != nil {
-		return -1, err
+	var err error
+	var result *Result
+	var reties int64 = 3
+	for {
+		if reties <= 0 {
+			break
+		}
+		reties--
+		result, err = s.Get()
+		if err != nil {
+			log.Errorf("get error %v", err)
+			continue
+		}
+		return result.Id, nil
 	}
-	return result.Id, nil
+	return -1, err
 }
 
 func (s *Server) Get() (*Result, error) {
 	req, err := http.NewRequest("POST", s.UrlPrefix, strings.NewReader(""))
 	if err != nil {
-		log.Errorf("getId request error %v", err)
 		return nil, err
 	}
 	resp, err := client.Do(req)
@@ -63,7 +74,6 @@ func (s *Server) Get() (*Result, error) {
 		defer resp.Body.Close()
 	}
 	if status := resp.StatusCode; status < 200 || status >= 300 {
-		log.Warnf("status code is not 200")
 		return nil, errors.New("status code is " + strconv.Itoa(status))
 	}
 	if body, err := ioutil.ReadAll(resp.Body); err != nil {
