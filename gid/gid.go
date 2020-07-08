@@ -42,7 +42,7 @@ func NewServer(urlPrefix string) *Server {
 func (s *Server) GetId() (int64, error) {
 	var err error
 	var result *Result
-	var reties int64 = 3
+	var reties int64 = 6
 	for {
 		if reties <= 0 {
 			break
