@@ -51,7 +51,7 @@ func (s *Server) GetId() (int64, error) {
 		result, err = s.Get()
 		if err != nil {
 			log.Errorf("get error %v", err)
-			continue
+			time.Sleep(time.Millisecond * 200)
 		}
 		return result.Id, nil
 	}
