@@ -10,7 +10,7 @@ type DbInstConfig struct {
 
 func (s *DbInstConfig) GetMaxLifetime() int {
 	if s.MaxLifetime <= 0 {
-		return 6
+		return 14400
 	}
 	return s.MaxLifetime
 }
